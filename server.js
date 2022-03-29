@@ -24,9 +24,12 @@ app.post('/summoner/riot/compiled-data/', async (req, res) => {
         // const matchListURL = `${routeNA1}lol/match/v5/matches/by-puuid/ids${devKey}`
         axios.get(accountURL)
             .then((response) => {
-                res.send(response.data)
+                const summonerCredentials = response.data
+                res.status(200).send({
+                    puuid: summonerCredentials.puuid
+                })
             })
-            
+
         // await axios.get()
 
     } catch (error) {
