@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 
 // functions
 async function getAccountCredentials() {
-    const accountURL = `${routeNA1}lol/summoner/v4/summoners/by-name/${summoner}${devKey}`;
+    
     await axios.get(accountURL).then((response) => {
         const puuid = response.data.puuid
         return puuid;
@@ -24,7 +24,7 @@ async function getAccountCredentials() {
 }
 
 async function getAccountMatchList() {
-    const matchListURL = `${routeNA1}lol/match/v5/matches/by-puuid/${puuid}/ids${devKey}`;
+    
     await axios.get(matchListURL).then((response) => {
         const accountMatchList = response.data
         return accountMatchList
@@ -34,9 +34,17 @@ async function getAccountMatchList() {
 // client sends summoner name -> server hits riot endpoints -> backend sends data to client
 app.post("/summoner/riot/compiled-data/", async (req, res) => {
   try {
-    const summoner = req.body.summoner;
-    getAccountCredentials(summoner)
-    res.status(200).send(puuid)
+    const accountURL = `${routeNA1}lol/summoner/v4/summoners/by-name/${summoner}${devKey}`;
+    axios.get(accountURL).then((response) => {
+        const matchListURL = `${routeNA1}lol/match/v5/matches/by-puuid/${response.data.puuid}/ids${devKey}`;
+        if (response)
+            axios.get(matchListURL).then((response) => {
+                res.status(200).send(response.data)
+            })
+    })
+
+
+
   } catch (error) {
     res.status(500).send({
       message: error.message,
