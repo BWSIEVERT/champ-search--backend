@@ -12,11 +12,6 @@ const PORT = 9000;
 app.use(express.json());
 app.use(cors());
 
-// server welcome message
-// app.get('/', (res) => {
-//     res.send('Welcome message successful.')
-// })
-
 app.get('/', (req, res) => {
     res.send('Welcome message successful')
 })
@@ -33,9 +28,9 @@ app.post('/summoner/riot/compiled-data/', async (req, res) => {
                 res.send(summonerPuuid);
             })
             .catch((error) => {
-                console.log(error);
                 res.status(404).send({
-                    message: `Summoner data could not be found for summoner name: ${summoner}.`
+                    message: `Summoner data could not be found for summoner name: ${summoner}.`,
+                    error: error
                 })
             })
         // await axios.get()
