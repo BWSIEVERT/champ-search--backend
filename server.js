@@ -14,7 +14,7 @@ app.use(cors());
 
 // server welcome message
 app.get('/', (res) => {
-    res.status(200).send('Welcome message successful.')
+    res.send('Welcome message successful.')
 })
 
 // client sends summoner name -> server hits riot endpoints -> backend sends data to client
