@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { devKey, routeNA1 } = require("./environmentConfig");
+const { devKey, routeNA1, regionAmericas } = require("./environmentConfig");
 const { default: axios } = require("axios");
 const app = express();
 const PORT = 9000;
@@ -37,7 +37,7 @@ app.post("/summoner/matches/riot/", async (req, res) => {
     try{
         const puuid = req.body.puuid
         console.log(puuid)
-        const matchListURL = `${routeNA1}lol/match/v5/matches/by-puuid/${puuid}/ids${devKey}`;
+        const matchListURL = `${regionAmericas}lol/match/v5/matches/by-puuid/${puuid}/ids${devKey}`;
         await axios.get(matchListURL).then((response) => {
             res.status(200).send({
                 matchList: response.data
