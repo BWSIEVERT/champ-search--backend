@@ -45,6 +45,6 @@ app.post('/summoner/riot/compiled-data/', async (req, res) => {
 
 
 //
-app.listen(PORT, () => {
+app.listen(process.env.PORT || 9000, () => {
     console.log(`*** Server is running! ***`)
 })
