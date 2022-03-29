@@ -22,17 +22,11 @@ app.post('/summoner/riot/compiled-data/', async (req, res) => {
         const summoner = req.body.summoner
         const accountURL = `${routeNA1}lol/summoner/v4/summoners/by-name/${summoner}${devKey}`
         // const matchListURL = `${routeNA1}lol/match/v5/matches/by-puuid/ids${devKey}`
-        await axios.get(accountURL)
-            .then((res) => {
-                const summonerPuuid = res.puuid;
-                res.send(summonerPuuid);
+        axios.get(accountURL)
+            .then((response) => {
+                res.send(response.data)
             })
-            .catch((error) => {
-                res.status(404).send({
-                    message: `Summoner data could not be found for summoner name: ${summoner}.`,
-                    error: error
-                })
-            })
+            
         // await axios.get()
 
     } catch (error) {
