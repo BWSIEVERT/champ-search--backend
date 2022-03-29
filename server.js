@@ -36,8 +36,7 @@ app.post("/summoner/riot/compiled-data/", async (req, res) => {
   try {
     const summoner = req.body.summoner;
     getAccountCredentials(summoner)
-    getAccountMatchList(puuid)
-    res.status(200).send(accountMatchList)
+    res.status(200).send(puuid)
   } catch (error) {
     res.status(500).send({
       message: error.message,
