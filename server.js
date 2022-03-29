@@ -36,7 +36,7 @@ app.post("/summoner/riot/", async (req, res) => {
 app.post("/summoner/matches/riot/", async (req, res) => {
     try{
         const puuid = req.body.puuid
-        const matchListURL = `${routeNA1}lol/match/v5/matches/by-puuid/${accountResponse.data.puuid}/ids${devKey}`;
+        const matchListURL = `${routeNA1}lol/match/v5/matches/by-puuid/${puuid}/ids${devKey}`;
         await axios.get(matchListURL).then((response) => {
             res.status(200).send({
                 matchList: response.data
