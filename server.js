@@ -20,7 +20,9 @@ app.post("/summoner/riot/", async (req, res) => {
     const summoner = req.body.summoner;
     const accountURL = `${routeNA1}lol/summoner/v4/summoners/by-name/${summoner}${devKey}`;
     await axios.get(accountURL).then((response) => {
-      res.status(200).send(response.data.puuid);
+      res.status(200).send({
+          puuid: response.data.puuid
+      });
     });
   } catch (error) {
     res.status(404).send({
@@ -36,7 +38,9 @@ app.post("/summoner/matches/riot/", async (req, res) => {
         const puuid = req.body.puuid
         const matchListURL = `${routeNA1}lol/match/v5/matches/by-puuid/${accountResponse.data.puuid}/ids${devKey}`;
         await axios.get(matchListURL).then((response) => {
-            res.status(200).send(response.data)
+            res.status(200).send({
+                matchList: response.data
+            })
         })
     } catch(error) {
         res.status(404).send({
