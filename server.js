@@ -12,6 +12,13 @@ const PORT = 9000;
 app.use(express.json());
 app.use(cors());
 
+// server welcome message
+app.get('/', (res) => {
+    res.status(200).send({
+        message: 'Welcome message successful.'
+    })
+})
+
 // client sends summoner name -> server hits riot endpoints -> backend sends data to client
 app.post('/summoner/riot/compiled-data/', async (req, res) => {
     try {
