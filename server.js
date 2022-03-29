@@ -20,12 +20,13 @@ app.post("/summoner/riot/compiled-data/", async (req, res) => {
   try {
     const summoner = req.body.summoner;
     const accountURL = `${routeNA1}lol/summoner/v4/summoners/by-name/${summoner}${devKey}`;
-    axios.get(accountURL).then((response) => {
-      const matchListURL = `${routeNA1}lol/match/v5/matches/by-puuid/${response.data.puuid}/ids${devKey}`;
-      if (response)
-        axios.get(matchListURL).then((response) => {
-          res.status(200).send(response.data);
-        });
+    await axios.get(accountURL).then((response) => {
+        res.status(200).send(response.data)
+    //   const matchListURL = `${routeNA1}lol/match/v5/matches/by-puuid/${response.data.puuid}/ids${devKey}`;
+    //   if (response)
+    //     await axios.get(matchListURL).then((response) => {
+    //       res.status(200).send(response.data);
+    //     });
     });
   } catch (error) {
     res.status(500).send({
