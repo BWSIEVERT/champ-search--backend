@@ -54,21 +54,25 @@ app.post("/summoner/matches/riot/", async (req, res) => {
 
 // client sends match id -> server hits riot endpoint -> server sends match data to client
 app.post("summoner/matches/compiled/riot/", async (req, res) => {
-    const matchListIds = {
-        matchOne: req.body[0],
-        // matchTwo: req.body.matchTwo,
-        // matchThree: req.body.matchThree,
-        // matchFour: req.body.matchFour,
-        // matchFive: req.body.matchFive,
-    }
+    // const matchListIds = {
+    //     matchOne: req.body[0],
+    //     // matchTwo: req.body.matchTwo,
+    //     // matchThree: req.body.matchThree,
+    //     // matchFour: req.body.matchFour,
+    //     // matchFive: req.body.matchFive,
+    // }
+    const matchListId = req.body[0]
     const matchListUrls = {
-        matchDataOneURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchOne}`,
+        matchDataOneURL: `${regionAmericas}lol/match/v5/matches/${matchListId}`,
         // matchDataTwoURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchTwo}`,
         // matchDataThreeURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchThree}`,
         // matchDataFourURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchFour}`,
         // matchDataFiveURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchFive}`,
     }
     try {
+        await axios.get(matchDataOneURL).then({
+
+        })
         await axios.all([matchDataOneURL]).then(axios.spread(function(res1, res2, res3, res4, res5) {
             res.status(200).send({
                 matchData: response.data
