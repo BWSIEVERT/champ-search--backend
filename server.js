@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const { devKey, routeNA1, regionAmericas } = require("./environmentConfig");
 const { default: axios } = require("axios");
+const { response } = require("express");
 const app = express();
 const PORT = 9000;
 
@@ -54,25 +55,24 @@ app.post("/summoner/matches/riot/", async (req, res) => {
 // client sends match id -> server hits riot endpoint -> server sends match data to client
 app.post("summoner/matches/compiled/riot/", async (req, res) => {
     const matchListIds = {
-        matchOne: req.body.matchOne,
-        matchTwo: req.body.matchTwo,
-        matchThree: req.body.matchThree,
-        matchFour: req.body.matchFour,
-        matchFive: req.body.matchFive,
+        matchOne: req.body[0],
+        // matchTwo: req.body.matchTwo,
+        // matchThree: req.body.matchThree,
+        // matchFour: req.body.matchFour,
+        // matchFive: req.body.matchFive,
     }
     const matchListUrls = {
         matchDataOneURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchOne}`,
-        matchDataTwoURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchTwo}`,
-        matchDataThreeURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchThree}`,
-        matchDataFourURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchFour}`,
-        matchDataFiveURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchFive}`,
+        // matchDataTwoURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchTwo}`,
+        // matchDataThreeURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchThree}`,
+        // matchDataFourURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchFour}`,
+        // matchDataFiveURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchFive}`,
     }
     try {
-        await axios.all([matchDataOneURL, matchDataTwoURL, matchDataThreeURL, matchDataFourURL, matchDataFiveURL]).then(axios.spread(function(res1, res2, res3, res4, res5) {
+        await axios.all([matchDataOneURL]).then(axios.spread(function(res1, res2, res3, res4, res5) {
             res.status(200).send({
-                message: `Hello`
+                matchData: response.data
             })
-            console.log(res1)
         }))
     } catch (error) {
         res.status(404).send({
