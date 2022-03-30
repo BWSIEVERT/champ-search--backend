@@ -52,7 +52,7 @@ app.post("/summoner/matches/riot/", async (req, res) => {
 });
 
 // client sends match id -> server hits riot endpoint -> server sends match data to client
-app.post("summoner/matches/compiled/riot/", async (req, res) => {
+app.post("/summoner/matches/compiled/riot/", async (req, res) => {
   // const matchListIds = {
   //     matchOne: req.body[0],
   //     // matchTwo: req.body.matchTwo,
