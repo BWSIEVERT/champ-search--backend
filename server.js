@@ -70,8 +70,8 @@ app.post("summoner/matches/compiled/riot/", async (req, res) => {
         // matchDataFiveURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchFive}`,
     }
     try {
-        await axios.get(matchDataOneURL).then({
-
+        await axios.get(matchDataOneURL).then((response) => {
+            res.status(200).send(response.data)
         })
         await axios.all([matchDataOneURL]).then(axios.spread(function(res1, res2, res3, res4, res5) {
             res.status(200).send({
