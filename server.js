@@ -36,7 +36,6 @@ app.post("/summoner/riot/", async (req, res) => {
 app.post("/summoner/matches/riot/", async (req, res) => {
     try{
         const puuid = req.body.puuid
-        console.log(puuid)
         const matchListURL = `${regionAmericas}lol/match/v5/matches/by-puuid/${puuid}/ids${devKey}`;
         await axios.get(matchListURL).then((response) => {
             res.status(200).send({
@@ -52,7 +51,39 @@ app.post("/summoner/matches/riot/", async (req, res) => {
     
 })
 
+// client sends match id -> server hits riot endpoint -> server sends match data to client
+app.post("summoner/matches/compiled/riot/", async (req, res) => {
+    const matchListIds = {
+        matchOne: req.body.matchOne,
+        matchTwo: req.body.matchTwo,
+        matchThree: req.body.matchThree,
+        matchFour: req.body.matchFour,
+        matchFive: req.body.matchFive,
+    }
+    const matchListUrls = {
+        matchDataOneURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchOne}`,
+        matchDataTwoURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchTwo}`,
+        matchDataThreeURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchThree}`,
+        matchDataFourURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchFour}`,
+        matchDataFiveURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchFive}`,
+    }
+    try {
+        await axios.all([matchDataOneURL, matchDataTwoURL, matchDataThreeURL, matchDataFourURL, matchDataFiveURL]).then(axios.spread(function(res1, res2, res3, res4, res5) {
+            console.log(res1)
+        }))
+    } catch (error) {
+        res.status(404).send({
+            errorMessage: error.message,
+            errorDescription: `Some match data for ${matchListIds} could not be found.`
+        })
+    }
+})
+
+
+
+
+
 //
 app.listen(process.env.PORT || 9000, () => {
-  console.log(`*** Server is running! ***`);
+  console.log(`*** Server is running on port ${process.env.PORT}! ***`);
 });
