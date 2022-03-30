@@ -70,7 +70,7 @@ app.post("/summoner/matches/compiled/riot/", async (req, res) => {
   };
   console.log(matchListId);
   try {
-    await axios.get(matchDataOneURL).then((response) => {
+    await axios.get(matchListUrls.matchDataOneURL).then((response) => {
       res.status(200).send(response.data);
     });
   } catch (error) {
