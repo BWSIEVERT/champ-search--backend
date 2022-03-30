@@ -63,7 +63,7 @@ app.post("summoner/matches/compiled/riot/", async (req, res) => {
     // }
     const matchListId = req.body[0]
     const matchListUrls = {
-        matchDataOneURL: `${regionAmericas}lol/match/v5/matches/${matchListId}`,
+        matchDataOneURL: `${regionAmericas}lol/match/v5/matches/${matchListId}${devKey}`,
         // matchDataTwoURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchTwo}`,
         // matchDataThreeURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchThree}`,
         // matchDataFourURL: `${regionAmericas}lol/match/v5/matches/${matchListIds.matchFour}`,
