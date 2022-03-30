@@ -76,7 +76,7 @@ app.post("/summoner/matches/compiled/riot/", async (req, res) => {
   } catch (error) {
     res.status(404).send({
       errorMessage: error.message,
-      errorDescription: `Some match data for ${matchListIds} could not be found.`,
+      errorDescription: `Some match data for ${matchListId} could not be found.`,
     });
   }
 });
